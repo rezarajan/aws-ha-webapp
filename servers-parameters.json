@@ -6,5 +6,9 @@
 	{
 		"ParameterKey": "AMI",
 		"ParameterValue": "ami-00ddb0e5626798373"
+	},
+	{
+		"ParameterKey": "InstanceType",
+		"ParameterValue": "t3.medium"
 	}
 ]

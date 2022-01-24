@@ -13,6 +13,10 @@ Parameters:
   AMI:
     Description: AMI to use for our base image
     Type: String
+  InstanceType:
+    Description: AWS instance type to use
+    Type: String
+    Default: t2.micro
 
 Resources:
   LBSecGroup:
@@ -87,7 +91,7 @@ Resources:
       IamInstanceProfile: !Ref ServerInstanceProfile
       SecurityGroups:
         - Ref: WebServerSecGroup
-      InstanceType: t3.medium
+      InstanceType: !Ref InstanceType
       BlockDeviceMappings:
         - DeviceName: "/dev/sdk"
           Ebs:
@@ -148,3 +152,10 @@ Resources:
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+
+Outputs:
+  LBURL:
+      Description: The DNS name for the webapp, provided by the load balancer
+      Value: !Join [ "", [ "http://", !GetAtt WebAppLB.DNSName ]]
+      Export:
+        Name: !Sub ${EnvironmentName}-URL
