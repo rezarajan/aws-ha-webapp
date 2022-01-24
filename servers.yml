@@ -157,10 +157,24 @@ Resources:
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+  BastionHost: 
+    Description: Bastion Host to access instances in the private subnet
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AMI
+      KeyName: !Ref KeyName
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - Ref: WebServerSecGroup
+          SubnetId: 
+            Fn::ImportValue: !Sub "${EnvironmentName}-PUB1-SN"
 
 Outputs:
   LBURL:
-      Description: The DNS name for the webapp, provided by the load balancer
-      Value: !Join [ "", [ "http://", !GetAtt WebAppLB.DNSName ]]
-      Export:
-        Name: !Sub ${EnvironmentName}-URL
+    Description: The DNS name for the webapp, provided by the load balancer
+    Value: !Join [ "", [ "http://", !GetAtt WebAppLB.DNSName ]]
+    Export:
+      Name: !Sub ${EnvironmentName}-URL
