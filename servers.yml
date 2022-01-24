@@ -58,7 +58,7 @@ Resources:
         ToPort: -1
         CidrIp: 0.0.0.0/0
   S3AccessRole: 
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties:
       Description: Assume role for S3 read-only access
       AssumeRolePolicyDocument:
@@ -73,7 +73,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
   ServerInstanceProfile: 
-    Type: "AWS::IAM::InstanceProfile"
+    Type: AWS::IAM::InstanceProfile
     Properties:
       Roles: 
         - !Ref S3AccessRole
