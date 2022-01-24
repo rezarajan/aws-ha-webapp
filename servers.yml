@@ -17,6 +17,9 @@ Parameters:
     Description: AWS instance type to use
     Type: String
     Default: t2.micro
+  KeyName:
+    Description: SSH Key for accessing the instance
+    Type: String
 
 Resources:
   LBSecGroup:
@@ -85,9 +88,11 @@ Resources:
           #!/bin/bash
           sudo apt-get update -y
           sudo apt-get install apache2 -y
-          sudo systemctl start apache2.service          
+          sudo systemctl start apache2.service
+          cd /var/www/html
+          echo "It works! Udagram, Udacity" > index.html
       ImageId: !Ref AMI
-      KeyName: voc
+      KeyName: !Ref KeyName
       IamInstanceProfile: !Ref ServerInstanceProfile
       SecurityGroups:
         - Ref: WebServerSecGroup
@@ -105,7 +110,7 @@ Resources:
       LaunchConfigurationName:
         Ref: WebAppLaunchConfig
       MinSize: '4'
-      MaxSize: '4'
+      MaxSize: '6'
       TargetGroupARNs:
       - Ref: WebAppTargetGroup
   WebAppLB:
