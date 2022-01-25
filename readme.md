@@ -105,7 +105,7 @@ The instance type used is a `t3.medium`, which includes 2 vCPUs, and 4 GiB of me
 
 *SSH Key*
 
-The SSH key name is kept outside of the `servers.yml` configuration file, and resides in a separate parameters file called `servers-parameters.json`, as a security measure. The `KeyName` property is still kept, however, as a means of the Bastion Host to be able to connect to the instance. For the purposes of this project, the actual name of the key is uploaded to the GitHub repository in the parameters file, since this key is only transient.
+The SSH key name is not included in the `servers.yml` configuration file, as a security measure. If one is to be inluded, the required property has been commented out, and it can be provided via the `servers-parameters.json` parameter file. This would be useful, for instance as a means of the Bastion Host connecting to the instance.
 
 ---
 

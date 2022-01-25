@@ -10,9 +10,5 @@
 	{
 		"ParameterKey": "InstanceType",
 		"ParameterValue": "t3.medium"
-	},
-	{
-		"ParameterKey": "KeyName",
-		"ParameterValue": "udacity"
 	}
 ]
